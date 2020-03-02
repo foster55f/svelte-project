@@ -1,30 +1,27 @@
 <script>
+ 	import { Router, Link, Route } from "svelte-routing";
+	import { onMount } from "svelte";
+	export let url = "";
+    import {push, pop, replace} from 'svelte-spa-router';
 	let name = 'Synonym Searcher';
 	let src = "images/synonym.jpg";
 	let word='';
 	let name2 = 'foster';	
 	let allSynonyms;
-	import SynonymContainer from './SynonymContainer.svelte';
-	import { onMount } from "svelte";
+	console.log(allSynonyms)
+	
 	const apiURL = "https://www.dictionaryapi.com/api/v3/references/thesaurus/json/{word}?key=0b203aa3-249e-401e-ab9e-867771f5d1fc";
 
 
-	const findSynonyms = (async () => {
+	export const findSynonyms = (async () => {
 		const response = await fetch(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${word}?key=0b203aa3-249e-401e-ab9e-867771f5d1fc`)
 		const data = await response.json();
 		const fullSynonyms = data.map(object => {
 			return object.meta.syns
 		})
-		allSynonyms=fullSynonyms[0][0].join()
+		allSynonyms=fullSynonyms[0][0]
 	})
-
-
-
-
 </script>
-
-	
-
 <style>
 	body {
 	}
@@ -65,8 +62,12 @@
 		<button className ='search-button' on:click={findSynonyms}>
 		Search For Synonyms
 		</button>
+		{#if allSynonyms}
+		<ul>
+		{#each allSynonyms as synonym}
+		<li>{synonym}</li>
+		{/each}
+		</ul>
+		{/if}
 	<img {src} alt="background image" />
-	<p>{allSynonyms}</p>
-	
-
 </main>
