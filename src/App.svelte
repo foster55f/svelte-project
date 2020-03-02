@@ -9,7 +9,6 @@
 	let name2 = 'foster';	
 	let allSynonyms;
 	
-	console.log(allSynonyms)
 	
 	const apiURL = "https://www.dictionaryapi.com/api/v3/references/thesaurus/json/{word}?key=0b203aa3-249e-401e-ab9e-867771f5d1fc";
 
@@ -89,11 +88,9 @@
 		Search For Synonyms
 		</button>
 		{#if allSynonyms}
-		<ul>
 		{#each allSynonyms as synonym}
-		<li>{synonym}</li>
+		<button on:click={findNewSynonym}>{synonym}</button>
 	{/each}
-</ul>
 		{/if}
 	<img {src} alt="background image" />
 </main>
