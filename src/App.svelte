@@ -6,8 +6,8 @@
 	let name = 'Synonym Searcher';
 	let src = "images/synonym.jpg";
 	let word='';
-	let name2 = 'foster';	
 	let allSynonyms;
+	let input={hasInputted:true}
 	
 	
 	const apiURL = "https://www.dictionaryapi.com/api/v3/references/thesaurus/json/{word}?key=0b203aa3-249e-401e-ab9e-867771f5d1fc";
@@ -32,7 +32,9 @@
 		})
 		allSynonyms=fullSynonyms[0][0]
 	})
+
 </script>
+
 <style>
 	body {
 	}
@@ -52,6 +54,12 @@
 		margin:10px;
 		width:35%;
 		text-align:center
+	}
+	div{
+	    justify-content: center;
+    	display: flex;
+    	flex-flow: row wrap;
+    	overflow: auto;
 	}
 	li{
 		text-decoration: underline;
@@ -79,18 +87,21 @@
     	border-radius: 10px;
 	}
 </style>
+
 <main>
 	<h1>{name}!</h1>
 	<form>
-		<input type ='text' placeholder='Enter Word' bind:value={word}>
+		<input type ='text' placeholder='Enter Word' bind:value={word} id="myInput" on:keydown={handleKeydown}>
 	</form>
 		<button className ='search-button' on:click={findSynonyms}>
-		Search For Synonyms
+				Search For Synonyms
 		</button>
 		{#if allSynonyms}
-		{#each allSynonyms as synonym}
-		<button on:click={findNewSynonym}>{synonym}</button>
-	{/each}
+		<div>
+			{#each allSynonyms as synonym}
+				<button on:click={findNewSynonym}>{synonym}</button>
+			{/each}
+		</div>
 		{/if}
 	<img {src} alt="background image" />
 </main>
