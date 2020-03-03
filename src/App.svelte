@@ -1,13 +1,9 @@
 <script>
- 	import { Router, Link, Route } from "svelte-routing";
-	import { onMount } from "svelte";
-	export let url = "";
-    import {push, pop, replace} from 'svelte-spa-router';
 	let name = 'Synonym Searcher';
 	let src = "images/synonym.jpg";
 	let word='';
 	let allSynonyms;
-	let input={hasInputted:true}
+	let input={hasInputted:false}
 	
 	
 	const apiURL = "https://www.dictionaryapi.com/api/v3/references/thesaurus/json/{word}?key=0b203aa3-249e-401e-ab9e-867771f5d1fc";
@@ -19,6 +15,7 @@
 		const fullSynonyms = data.map(object => {
 			return object.meta.syns
 		})
+		document.getElementById('myInput').value = ''
 		allSynonyms=fullSynonyms[0][0]
 	})
 
@@ -33,14 +30,14 @@
 		allSynonyms=fullSynonyms[0][0]
 	})
 
+		const handleKeydown = () => {
+			input={hasInputted:true}
+			console.log(input.value)
+	}
+
 </script>
 
 <style>
-	body {
-	}
-	span{
-		font-weight: bold;	
-	}
 	main{
 		display: flex;
     	flex-direction: column;
@@ -61,14 +58,6 @@
     	flex-flow: row wrap;
     	overflow: auto;
 	}
-	li{
-		text-decoration: underline;
-		cursor: pointer;
-	}
-	li:hover,
-	li:focus{
-			transform: scale(1.05);
-	}
 	button {
 		background-color: tomato;
     	border-radius: 10px;
@@ -77,9 +66,6 @@
     	height: 50px;
 	}
 	button:hover,
-	button:focus{
-			transform: scale(1.05);
-	}
 	input{
 		outline-width: 0;
     	height: 50px;
