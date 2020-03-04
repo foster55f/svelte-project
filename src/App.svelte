@@ -16,7 +16,8 @@
 		const fullSynonyms = data.map(object => {
 			return object.meta.syns
 		})
-		document.getElementById('myInput').value = ''
+		document.getElementById('myInput').value = '';
+		newWord=''
 		allSynonyms=fullSynonyms[0][0]
 	})
 
@@ -28,12 +29,13 @@
 		const fullSynonyms = data.map(object => {
 			return object.meta.syns
 		})
+		document.getElementById('myInput').value = '';
+		word=''
 		allSynonyms=fullSynonyms[0][0]
 	})
 
 		const handleKeydown = () => {
 			input={hasInputted:true}
-			console.log(input.value)
 	}
 
 </script>
@@ -83,6 +85,8 @@
     	cursor: pointer;
     	width: 210px;
     	height: 50px;
+		margin-left:2px;
+		margin-right:2px;
 	}
 	.button-results:hover{
 		outline-width: 0;
