@@ -26,7 +26,7 @@ By default, the server will only respond to requests from localhost. To allow co
 
 ## User Interface and User Experience
 
-![User Experience](https://user-images.githubusercontent.com/50148342/75903752-43936c00-5dff-11ea-96b5-cdda0648f552.gif)
+![User Experience](https://user-images.githubusercontent.com/50148342/75908875-2f07a180-5e08-11ea-992c-082d2fab2c9b.gif)
 
 
 ## Future Iterations 
