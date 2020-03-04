@@ -2,6 +2,7 @@
 	let name = 'Synonym Searcher';
 	let src = "images/synonym.jpg";
 	let word='';
+	let newWord='';
 	let allSynonyms;
 	let input={hasInputted:false}
 	
@@ -15,24 +16,26 @@
 		const fullSynonyms = data.map(object => {
 			return object.meta.syns
 		})
-		document.getElementById('myInput').value = ''
+		document.getElementById('myInput').value = '';
+		newWord=''
 		allSynonyms=fullSynonyms[0][0]
 	})
 
 
 	export const findNewSynonym = (async (e) => {
-		const newWord = e.target.innerHTML
+		newWord = e.target.innerHTML
 		const response = await fetch(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${newWord}?key=0b203aa3-249e-401e-ab9e-867771f5d1fc`)
 		const data = await response.json();
 		const fullSynonyms = data.map(object => {
 			return object.meta.syns
 		})
+		document.getElementById('myInput').value = '';
+		word=''
 		allSynonyms=fullSynonyms[0][0]
 	})
 
 		const handleKeydown = () => {
 			input={hasInputted:true}
-			console.log(input.value)
 	}
 
 </script>
@@ -44,6 +47,10 @@
     	align-items: center;
 		border: solid 1px deepskyblue;
     	background-color: skyblue;	
+	}
+
+	span {
+  		font-weight: bold;
 	}
 	h1{
 		text-decoration: underline;
@@ -72,6 +79,23 @@
     	width: 210px;
     	border-radius: 10px;
 	}
+	.button-results{
+		background-color: white;
+		border-radius: 10px;
+    	cursor: pointer;
+    	width: 210px;
+    	height: 50px;
+		margin-left:2px;
+		margin-right:2px;
+	}
+	.button-results:hover{
+		outline-width: 0;
+
+	}
+	p{
+		color: navy;
+    	font-size: large;
+	}
 </style>
 
 <main>
@@ -83,9 +107,10 @@
 				Search For Synonyms
 		</button>
 		{#if allSynonyms}
+		<p>Results for <span>{newWord.toUpperCase()||word.toUpperCase()}</span></p>
 		<div>
 			{#each allSynonyms as synonym}
-				<button on:click={findNewSynonym}>{synonym}</button>
+				<button class='button-results'on:click={findNewSynonym}>{synonym}</button>
 			{/each}
 		</div>
 		{/if}
